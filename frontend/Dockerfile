@@ -1,26 +1,12 @@
-# Stage 1: Build
-FROM node:21 AS builder
+FROM node:20-alpine
 
 WORKDIR /app
 
 COPY package*.json ./
-
-RUN npm install 
+RUN npm install
 
 COPY . .
 
-RUN npm run build
+EXPOSE 5173
 
-FROM nginx:alpine
-
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY ./assets/env.js.template /usr/share/nginx/html/assets/env.js.template
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-EXPOSE 80
-ENTRYPOINT [ "/entrypoint.sh" ]
-CMD ["nginx", "-g", "daemon off;"]
-
+CMD ["npm", "run", "dev"]

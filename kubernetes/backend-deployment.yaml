@@ -14,8 +14,7 @@ spec:
         app: backend
     spec:
       containers:
-      - name: backend
-        image: prajwalkumar1453/backend:v3
-        ports:
-        - containerPort: 8080
-      
+        - name: backend
+          image: prajwalkumar1453/backend:v3
+          ports:
+            - containerPort: 8080

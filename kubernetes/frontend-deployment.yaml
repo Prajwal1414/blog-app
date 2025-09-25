@@ -14,7 +14,10 @@ spec:
         app: frontend
     spec:
       containers:
-      - name: frontend
-        image: prajwalkumar1453/frontend:v3
-        ports:
-        - containerPort: 80
+        - name: frontend
+          image: prajwalkumar1453/frontend:v3
+          ports:
+            - containerPort: 5173
+          env:
+            - name: VITE_API_PATH
+              value: http://backend-service:8080
