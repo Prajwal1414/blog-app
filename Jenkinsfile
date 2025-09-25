@@ -64,8 +64,10 @@ pipeline{
 
     stage("SonarQube: Code quality gate"){
       steps{
-        script{
-          sonarqube_code_quality()
+        withSonarQubeEnv('Sonar') {
+            timeout(time: 5, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: false
+            }
         }
       }
     }
@@ -111,21 +113,19 @@ pipeline{
     stage("Docker: Push to DockerHub"){
       steps{
         script{
-          docker_push("frontend", "${params.FRONTEND_DOCKER_TAG}", prajwalkumar1453)
-          docker_build("backend", "${params.BACKEND_DOCKER_TAG}", prajwalkumar1453)
+          docker_push("frontend", "${params.FRONTEND_DOCKER_TAG}", "prajwalkumar1453")
+          docker_push("backend", "${params.BACKEND_DOCKER_TAG}", "prajwalkumar1453")
         }
       }
     }
   }
-
   post{
     success{
-      archiveArtifacts artifcats: '*.xml', followSymlinks: false
+      archiveArtifacts artifacts: '*.xml', followSymlinks: false
       build job: "Wanderlust-CD", parameters: [
-        string(name: 'FRONTEND_DOCKER_TAG', value: "${params.FRONTEND_DOCKER_TAG}"),
-        string(name: 'BACKEND_DOCKER_TAG', value: "${params.BACKEND_DOCKER_TAG}")
-      ]
+      string(name: 'FRONTEND_DOCKER_TAG', value: "${params.FRONTEND_DOCKER_TAG}"),
+      string(name: 'BACKEND_DOCKER_TAG', value: "${params.BACKEND_DOCKER_TAG}")
+    ]
     }
   }
-  
 }
