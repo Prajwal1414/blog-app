@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: prajwalkumar1453/frontend:v5.1
+          image: prajwalkumar1453/frontend:v6
           ports:
             - containerPort: 80
           env:
