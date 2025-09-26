@@ -8,6 +8,7 @@ import navigateBackWhiteIcon from '@/assets/svg/navigate-back-white.svg';
 import ModalComponent from '@/components/modal';
 import CategoryPill from '@/components/category-pill';
 import { categories } from '@/utils/category-colors';
+import { getApiPath } from '@/utils/getApiPath';
 
 type FormData = {
   title: string;
@@ -97,7 +98,7 @@ function AddBlog() {
     e.preventDefault();
     if (validateFormData()) {
       try {
-        const response = await axios.post(window.env.VITE_API_PATH + '/api/posts/', formData);
+        const response = await axios.post(getApiPath() + '/api/posts/', formData);
 
         if (response.status === 200) {
           toast.success('Blog post successfully created!');

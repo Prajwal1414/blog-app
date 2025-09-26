@@ -5,12 +5,13 @@ import PostCard from '@/components/post-card';
 import Post from '@/types/post-type';
 import { PostCardSkeleton } from '@/components/skeletons/post-card-skeleton';
 import Header from '@/layouts/header-layout';
+import { getApiPath } from '@/utils/getApiPath';
 function HomePage() {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     axios
-      .get(window.env.VITE_API_PATH + '/api/posts')
+      .get(getApiPath() + '/api/posts')
       .then((response) => {
         setPosts(response.data);
       })
