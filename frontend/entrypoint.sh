@@ -1,6 +1,8 @@
-#! /bin/sh
+#!/bin/sh
+set -e
 
-echo "Injecting runtime vars"
-envsubst '$VITE_API_PATH' < /usr/share/nginx/html/assets/env.js.template > /usr/share/nginx/html/assets/env.js
+# Replace the placeholder with the actual environment variable value
+/bin/sh -c "envsubst < /usr/share/nginx/html/assets/env.js.template > /usr/share/nginx/html/assets/env.js"
 
+# Execute the main container command (nginx)
 exec "$@"
