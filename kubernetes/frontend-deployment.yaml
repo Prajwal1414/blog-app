@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: prajwalkumar1453/frontend-local:v1
+          image: prajwalkumar1453/frontend-local:v4
           # image: front-local:test
           ports:
             - containerPort: 80
