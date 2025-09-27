@@ -15,9 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: prajwalkumar1453/frontend:v7
+          image: prajwalkumar1453/frontend-local:v1
+          # image: front-local:test
           ports:
             - containerPort: 80
-          env:
-            - name: VITE_API_PATH
-              value: http://backend-service:8080
