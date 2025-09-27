@@ -2,4 +2,3 @@ Dockerfile
 dist/
 build/
 node_modules/
-.env
